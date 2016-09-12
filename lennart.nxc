@@ -1,0 +1,31 @@
+# Testkod till Lennart
+# Av: Oliver
+# 2016-09-12
+# Kör framåt, bakåt och snurrar
+# Vänster motor på port B
+# Höger motor på port C
+# OnFwdSync innebär att motorerna synkroniseras så att roboten åker rakt,
+
+int move_time = 500; #Förflyttning sker i enheter om 0,5s
+int turn_time = 200; #Rotation sker i enheter om 0,2s
+int turn_constant = 10; #konstant för kalibrering av turn-funktionen
+
+safecall void turn (int degrees) #funktion som får roboten att på stället rotera givet antal grader medurs
+			#Använd negativt tal för rotation moturs
+			#RotateMotor används för att få mer detaljerad styrning av rotationen
+{
+	RotateMotor (OUT_B, 100, turn_constant*degrees); #Vänster motor roterar turn_constant*degrees antal grader
+	RotateMotor (OUT_C, 100, -turn_constant*degrees); #Höger motor åt andra hållet
+}
+
+task main () #Huvudtask, flera tasks kan köras parallellt
+{
+	OnFwdSync (OUT_BC, 50, 0); #Kör framåt, halv hastighet, ingen sväng
+	Wait (move_time); #Fortsätter köra en tidsenhet
+	OnRevSync (OUT_BC, 50, 0); #Backar, halv hastighet, ingen sväng
+	Wait (move_time);
+	Off (OUT_BC); #Stanna
+	turn (90); #Rotera på stället, kalibrering behövs	
+}
+
+
