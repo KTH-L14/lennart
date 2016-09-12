@@ -1,32 +1,31 @@
 /* Testkod till Lennart
 Av: Oliver
 2016-09-12
-Kör framåt, bakåt och snurrar
-Vänster motor på port B
-Höger motor på port C
-OnFwdSync innebär att motorerna synkroniseras så att roboten åker rakt,*/
+KÃ¶r framÃ¥t, bakÃ¥t och snurrar
+VÃ¤nster motor pÃ¥ port B
+HÃ¶ger motor pÃ¥ port C
+OnFwdSync innebÃ¤r att motorerna synkroniseras sÃ¥ att roboten Ã¥ker rakt,*/
 
-int move_time = 500; //Förflyttning sker i enheter om 0,5s
-int turn_time = 200; //Rotation sker i enheter om 0,2s
-int turn_constant = 10; //konstant för kalibrering av turn-funktionen
+int move_time = 500; //FÃ¶rflyttning sker i enheter om 0,5s
+int turn_constant = 10; //konstant fÃ¶r kalibrering av turn-funktionen
 
 safecall void turn (int degrees)
-/*funktion som får roboten att på stället rotera givet antal grader medurs
-Använd negativt tal för rotation moturs
-RotateMotor används för att få mer detaljerad styrning av rotationen*/
+/*funktion som fÃ¥r roboten att pÃ¥ stÃ¤llet rotera givet antal grader medurs
+AnvÃ¤nd negativt tal fÃ¶r rotation moturs
+RotateMotor anvÃ¤nds fÃ¶r att fÃ¥ mer detaljerad styrning av rotationen*/
 {
-	RotateMotor (OUT_B, 100, turn_constant*degrees); //Vänster motor roterar turn_constant*degrees antal grader
-	RotateMotor (OUT_C, 100, -turn_constant*degrees); //Höger motor åt andra hållet
+	RotateMotor (OUT_B, 100, turn_constant*degrees); //VÃ¤nster motor roterar turn_constant*degrees antal grader
+	RotateMotor (OUT_C, 100, -turn_constant*degrees); //HÃ¶ger motor Ã¥t andra hÃ¥llet
 }
 
-task main () //Huvudtask, flera tasks kan köras parallellt
+task main () //Huvudtask, flera tasks kan kÃ¶ras parallellt
 {
-	OnFwdSync (OUT_BC, 50, 0); //Kör framåt, halv hastighet, ingen sväng
-	Wait (move_time); //Fortsätter köra en tidsenhet
-	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen sväng
+	OnFwdSync (OUT_BC, 50, 0); //KÃ¶r framÃ¥t, halv hastighet, ingen svÃ¤ng
+	Wait (move_time); //FortsÃ¤tter kÃ¶ra en tidsenhet
+	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen svÃ¤ng
 	Wait (move_time);
 	Off (OUT_BC); //Stanna
-	turn (90); //Rotera på stället, kalibrering behövs
+	turn (90); //Rotera pÃ¥ stÃ¤llet, kalibrering behÃ¶vs
 }
 
 
