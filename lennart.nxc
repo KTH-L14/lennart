@@ -1,18 +1,17 @@
 /* Testkod till Lennart
 Av: Oliver
 2016-09-12
-Kör framåt, bakåt och snurrar
-Vänster motor på port B
-Höger motor på port C
-OnFwdSync innebär att motorerna synkroniseras så att roboten åker rakt,*/
+Kor framat, bakat och snurrar
+Vonster motor port B
+Hoger motor port C
+OnFwdSync innebar att motorerna synkroniseras sa att roboten aker rakt,*/
 
-int move_time = 1000; //Förflyttning sker i enheter om 1 s
-int turn_constant = 10 ; //konstant för kalibrering av turn-funktionen
+int move_time = 1000; //Forflyttning sker i enheter om 1 s
+int turn_constant = 10 ; //konstant for kalibrering av turn-funktionen
 
 safecall void turn (int degrees)
-/*funktion som får roboten att på stället rotera givet antal grader medurs
-Använd negativt tal för rotation moturs
-RotateMotor används för att få mer detaljerad styrning av rotationen*/
+/*funktion som far roboten att pa stallet rotera givet antal grader medurs
+Anvand negativt tal for rotation moturs*/
 {
  if degrees >0 { //sv�ng medurs om angiven vinkel positiv
     OnFwd (OUT_B, 100);  //v motor fram�t
@@ -25,14 +24,14 @@ RotateMotor används för att få mer detaljerad styrning av rotationen*/
  Wait(degrees*turn_constant); //anger rotationstiden, turn_constant m�ste kalibreras
 }
 
-task main () //Huvudtask, flera tasks kan köras parallellt
+task main () //Huvudtask, flera tasks kan koras parallellt
 {
-	OnFwdSync (OUT_BC, 50, 0); //Kör framåt, halv hastighet, ingen sväng
-	Wait (move_time); //Fortsätter köra en tidsenhet
-	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen sväng
+	OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
+	Wait (move_time); //Fortsatter kora en tidsenhet
+	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen svang
 	Wait (move_time);
 	Off (OUT_BC); //Stanna
-	turn (90); //Rotera på stället, kalibrering behövs
+	turn (90); //Rotera pa stallet, kalibrering behovs
 }
 
 
