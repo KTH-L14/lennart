@@ -1,6 +1,4 @@
 /* Testkod till Lennart
-Av: Oliver
-2016-09-12
 Kor framat, bakat och snurrar
 Vonster motor port B
 Hoger motor port C
@@ -22,9 +20,10 @@ Anvand negativt tal for rotation moturs*/
       OnRev (OUT_B, 100); //v motor bakåt
  }
  Wait(degrees*turn_constant); //anger rotationstiden, turn_constant måste kalibreras
+ Off (OUT_BC); //sluta rotera
 }
 
-task main () //Huvudtask, flera tasks kan koras parallellt
+task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 {
 	OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
 	Wait (move_time); //Fortsatter kora en tidsenhet
