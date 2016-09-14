@@ -13,17 +13,16 @@ safecall void turn (int degrees)
 /*funktion som fÃ¥r roboten att pÃ¥ stÃ¤llet rotera givet antal grader medurs
 AnvÃ¤nd negativt tal fÃ¶r rotation moturs
 RotateMotor anvÃ¤nds fÃ¶r att fÃ¥ mer detaljerad styrning av rotationen*/
-            {
-            if degrees >0 { //sväng medurs om angiven vinkel positiv
-	             OnFwd (OUT_B, 100);  //v motor framåt
-	             OnRev (OUT_C, 100);   //h motor bakåt
-            }
-            else {   //sväng moturs om vinkeln negativ
-	               OnFwd (OUT_C, 100); //h motor framåt
-	               OnRev (OUT_B, 100); //v motor bakåt
-            }
-            Wait(degrees*turn_constant);
-            //anger rotationstiden, turn_constant måste kalibreras
+{
+ if degrees >0 { //sväng medurs om angiven vinkel positiv
+    OnFwd (OUT_B, 100);  //v motor framåt
+    OnRev (OUT_C, 100);   //h motor bakåt
+ }
+ else {   //sväng moturs om vinkeln negativ
+      OnFwd (OUT_C, 100); //h motor framåt
+      OnRev (OUT_B, 100); //v motor bakåt
+ }
+ Wait(degrees*turn_constant); //anger rotationstiden, turn_constant måste kalibreras
 }
 
 task main () //Huvudtask, flera tasks kan kÃ¶ras parallellt
