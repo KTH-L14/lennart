@@ -7,15 +7,23 @@ Höger motor på port C
 OnFwdSync innebär att motorerna synkroniseras så att roboten åker rakt,*/
 
 int move_time = 1000; //Förflyttning sker i enheter om 1 s
-int turn_constant = 10; //konstant för kalibrering av turn-funktionen
+int turn_constant = 10 ; //konstant för kalibrering av turn-funktionen
 
 safecall void turn (int degrees)
 /*funktion som får roboten att på stället rotera givet antal grader medurs
 Använd negativt tal för rotation moturs
 RotateMotor används för att få mer detaljerad styrning av rotationen*/
-{
-	RotateMotor (OUT_B, 100, turn_constant*degrees); //Vänster motor roterar turn_constant*degrees antal grader
-	RotateMotor (OUT_C, 100, -turn_constant*degrees); //Höger motor åt andra hållet
+            {
+            if degrees >0 { //sv�ng medurs om angiven vinkel positiv
+	             OnFwd (OUT_B, 100);  //v motor fram�t
+	             OnRev (OUT_C, 100);   //h motor bak�t
+            }
+            else {   //sv�ng moturs om vinkeln negativ
+	               OnFwd (OUT_C, 100); //h motor fram�t
+	               OnRev (OUT_B, 100); //v motor bak�t
+            }
+            Wait(degrees*turn_constant);
+            //anger rotationstiden, turn_constant m�ste kalibreras
 }
 
 task main () //Huvudtask, flera tasks kan köras parallellt
