@@ -6,7 +6,7 @@ Vänster motor på port B
 Höger motor på port C
 OnFwdSync innebär att motorerna synkroniseras så att roboten åker rakt,*/
 
-int move_time = 500; //Förflyttning sker i enheter om 0,5s
+int move_time = 1000; //Förflyttning sker i enheter om 1 s
 int turn_constant = 10; //konstant för kalibrering av turn-funktionen
 
 safecall void turn (int degrees)
