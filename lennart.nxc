@@ -4,14 +4,14 @@ Vonster motor port B
 Hoger motor port C
 OnFwdSync innebar att motorerna synkroniseras sa att roboten aker rakt,*/
 
-int move_time = 1000; //Forflyttning sker i enheter om 1 s
-int turn_constant = 10 ; //konstant for kalibrering av turn-funktionen
+int move_time = 2000; //Forflyttning sker i enheter om 1 s
+float turn_constant = 2.35 ; //konstant for kalibrering av turn-funktionen
 
 safecall void turn (int degrees)
 /*funktion som far roboten att pa stallet rotera givet antal grader medurs
 Anvand negativt tal for rotation moturs*/
 {
- if degrees >0 { //sväng medurs om angiven vinkel positiv
+ if (degrees > 0) { //sväng medurs om angiven vinkel positiv
     OnFwd (OUT_B, 100);  //v motor framåt
     OnRev (OUT_C, 100);   //h motor bakåt
  }
@@ -25,12 +25,13 @@ Anvand negativt tal for rotation moturs*/
 
 task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 {
-	OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
+  Wait (2000);
+  OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
 	Wait (move_time); //Fortsatter kora en tidsenhet
 	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen svang
 	Wait (move_time);
 	Off (OUT_BC); //Stanna
-	turn (90); //Rotera pa stallet, kalibrering behovs
+	turn (360); //Rotera pa stallet, kalibrering behovs
 }
 
 
