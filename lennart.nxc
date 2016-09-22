@@ -7,7 +7,7 @@ OnFwdSync innebar att motorerna synkroniseras sa att roboten aker rakt,*/
 int move_time = 2000; //Forflyttning sker i enheter om 1 s
 float turn_constant = 2.35 ; //konstant for kalibrering av turn-funktionen
 
-safecall void turn (int degrees)
+void turn (int degrees)
 /*funktion som far roboten att pa stallet rotera givet antal grader medurs
 Anvand negativt tal for rotation moturs*/
 {
@@ -23,15 +23,41 @@ Anvand negativt tal for rotation moturs*/
  Off (OUT_BC); //sluta rotera
 }
 
+void detect () { //Procedur som får Lennart att stanna och stsöka efter motståndare
+     Off (OUT_BC); //stanna
+     while (motståndare inte framför) { //rotera tills motståndare hittas
+     turn (10);
+     }
+}
+
+void demonstration () {  //procedur för demonstration
+     Wait (2000);
+     OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
+     Wait (move_time); //Fortsatter kora en tidsenhet
+     OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen svang
+     Wait (move_time);
+     Off (OUT_BC); //Stanna
+     turn (360); //Rotera pa stallet
+}
+
 task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 {
-  Wait (2000);
-  OnFwdSync (OUT_BC, 50, 0); //Kor framat, halv hastighet, ingen svang
-	Wait (move_time); //Fortsatter kora en tidsenhet
-	OnRevSync (OUT_BC, 50, 0); //Backar, halv hastighet, ingen svang
-	Wait (move_time);
-	Off (OUT_BC); //Stanna
-	turn (360); //Rotera pa stallet, kalibrering behovs
+     While (combat = 1){
+           detect();
+           OnFwdSync (OUT_BC,100,0);
+           Wait (move_time);
+           Off (OUT_BC);
+     }
+     
 }
+
+task border () //Task som backar om frontsensorn upptäcker svart
+{
+ if () {  //senor upptäcker svart
+ OnRevSync (OUT_BC,100,0);
+ Wait (move_time);
+ }
+}
+
 
 
