@@ -42,7 +42,8 @@ void demonstration () {  //procedur för demonstration
 
 task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 {
-     While (combat = 1){
+     bool combat = TRUE;
+     While (combat == TRUE){
            detect();
            OnFwdSync (OUT_BC,100,0);
            Wait (move_time);
