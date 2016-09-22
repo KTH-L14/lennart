@@ -55,10 +55,16 @@ task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 task border () //Task som backar om frontsensorn upptacker svart
 {
  #define Threshold 20 //gränsvärde för sensorn, bor kalibreras
+ Precedes (main);
  SetSensorLight(IN_4);
- if (Sensor(IN_4)<Threshold) {   //Olikheten åt ratt hall?
+ SetSensorType(IN_4,IN_TYPE_LIGHT_INACTIVE);
+ SetSensorMode(IN_4,IN_MODE_PCTFULLSCALE);
+ ResetSensor(IN_3);
+ if (Sensor(IN_4)<Threshold) {   //Olikheten at ratt hall?
     OnRevSync (OUT_BC,100,0);
     Wait (move_time);
+    Off (OUT_BC);
+    detect();
  }
 }
 
