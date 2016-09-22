@@ -52,11 +52,13 @@ task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
      
 }
 
-task border () //Task som backar om frontsensorn upptäcker svart
+task border () //Task som backar om frontsensorn upptacker svart
 {
- if () {  //senor upptäcker svart
- OnRevSync (OUT_BC,100,0);
- Wait (move_time);
+ #define Threshold 40 //gränsvärde för sensorn, bor kalibreras
+ SetSensorLight(IN_1);
+ if (Sensor(IN_1)<Threshold) {   //Olikheten åt ratt hall?
+    OnRevSync (OUT_BC,100,0);
+    Wait (move_time);
  }
 }
 
