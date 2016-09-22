@@ -24,8 +24,9 @@ Anvand negativt tal for rotation moturs*/
 }
 
 void detect () { //Procedur som får Lennart att stanna och stsöka efter motståndare
+     SetSensorLowspeed (IN_3);
      Off (OUT_BC); //stanna
-     while (motståndare inte framför) { //rotera tills motståndare hittas
+     while (SensorUS(IN_3)>30) { //rotera tills motstandare hittas
      turn (10);
      }
 }
@@ -43,20 +44,19 @@ void demonstration () {  //procedur för demonstration
 task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
 {
      bool combat = TRUE;
-     While (combat == TRUE){
+     while (combat == TRUE){
            detect();
            OnFwdSync (OUT_BC,100,0);
            Wait (move_time);
            Off (OUT_BC);
      }
-     
 }
 
 task border () //Task som backar om frontsensorn upptacker svart
 {
- #define Threshold 40 //gränsvärde för sensorn, bor kalibreras
- SetSensorLight(IN_1);
- if (Sensor(IN_1)<Threshold) {   //Olikheten åt ratt hall?
+ #define Threshold 20 //gränsvärde för sensorn, bor kalibreras
+ SetSensorLight(IN_4);
+ if (Sensor(IN_4)<Threshold) {   //Olikheten åt ratt hall?
     OnRevSync (OUT_BC,100,0);
     Wait (move_time);
  }
