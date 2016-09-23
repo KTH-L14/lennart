@@ -4,7 +4,7 @@ Vonster motor port B
 Hoger motor port C
 OnFwdSync innebar att motorerna synkroniseras sa att roboten aker rakt,*/
 
-int move_time = 500; //Forflyttning sker i enheter om 1 s
+int move_time = 250; //Forflyttning sker i enheter om 1 s
 float turn_constant = 2.35 ; //konstant for kalibrering av turn-funktionen
 
 void turn (int degrees)
