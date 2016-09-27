@@ -48,14 +48,13 @@ task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
      while (combat == TRUE){
            detect();
            SetSensorLight(IN_4);
-           OnFwdSync (OUT_BC,100,0);
+           OnRevSync (OUT_BC,100,0);
            if (Sensor(IN_4)<Threshold){
               Off (OUT_BC);
-              OnRevSync (OUT_BC,100,0);
+              OnFwdSync (OUT_BC,100,0);
               Wait (2*move_time);
            }
            Wait (move_time);
            Off (OUT_BC);
      }
 }
-
