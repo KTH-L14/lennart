@@ -47,6 +47,7 @@ task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
      bool combat = TRUE;
      while (combat == TRUE){
            detect();
+           SetSensorTouch(IN_1);
            SetSensorLight(IN_4);
            while (SensorUS(IN_3)<30) { //medan motstandare ar framfor
                  if (Sensor(IN_4)<Threshold){
@@ -54,6 +55,10 @@ task main () //Huvudtask, det roboten ska gora. Flera tasks kan koras parallellt
                  OnFwdSync (OUT_BC,100,0);
                  Wait (2*move_time);
                  detect();
+                 }
+                 if (Sensor(IN_1)==1){
+                    RotateMotor (OUT_A,100,120);
+                    RotateMotor (OUT_A,100,-120);
                  }
            OnRevSync (OUT_BC,100,0);
            }
